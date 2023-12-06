@@ -25,17 +25,14 @@ module.exports = class LoginController {
                 const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
                     expiresIn: '7d' // expires in 5min
                 });
-
-                console.log("Enviando TOKEN = ", token);
-
-                res.cookie('Authorization', `${token}`);
+                
+                res.cookie('Authorization', token);
 
                 const result = {
                     func: user.func,
                     status: true
                 };
-
-                return res.status(200).json(result);
+                return res.status(200).json({result, token});
             };
 
         } catch (error) {
