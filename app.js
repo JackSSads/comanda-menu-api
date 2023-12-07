@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+require("dotenv").config();
 const cors = require("cors");
 
 const connection = require("./db/connection");
@@ -18,10 +18,10 @@ app.use(
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ["http://localhost:3000"],
     credentials: true,
-    methods: 'GET, POST, PUT, DELETE',
-    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+    methods: "GET, POST, PUT, DELETE",
+    allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
 }));
 
 app.use("/login", loginRouter);
@@ -31,7 +31,7 @@ app.use("/produto", produtoRoutes);
 
 connection
     .then(() => {
-        console.log("Conectado ao Mongo");
-        app.listen(80)
+        app.listen(process.env.PORT);
+        console.log("Estamos conectados com o Mongo");
     })
-    .catch(() => console.log("Erro ao conectart ao Mongo"));
+    .catch(() => console.log("Erro ao conectar ao DB"));
