@@ -6,9 +6,9 @@ module.exports = class UserController {
         try {
             const data = await User.find();
 
-            return new Promise(() => res.status(200).json(data));
+            return new Promise(() => res.status(200).json({ data, status: true }));
         } catch (error) {
-            return new Promise(() => res.status(500).json({ error: `${error}` }));
+            return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
     };
 
@@ -18,11 +18,11 @@ module.exports = class UserController {
         try {
             const data = await User.findOne({ _id: id });
 
-            if (!data) return res.status(500).json({ message: "Erro ao buscar usuário" });
+            if (!data) return res.status(500).json({ message: "Erro ao buscar usuário", status: false });
 
-            return new Promise(() => res.status(200).json(data));
+            return new Promise(() => res.status(200).json({ data, status: true }));
         } catch (error) {
-            return new Promise(() => res.status(500).json({ error: `${error}` }));
+            return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
     };
 
@@ -34,10 +34,9 @@ module.exports = class UserController {
 
             await User.create(user);
 
-            return new Promise(() => res.status(201).json({ message: "Usuário cadastrado com sucesso" }));
-
+            return new Promise(() => res.status(201).json({ message: "Usuário cadastrado com sucesso", status: true }));
         } catch (error) {
-            return new Promise(() => res.status(500).json({ error: `${error}` }));
+            return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
     };
 
@@ -51,23 +50,23 @@ module.exports = class UserController {
 
             await User.updateOne({ _id: id }, data);
 
-            return new Promise(() => res.status(200).json({ message: "Comanda atualizada" }));
+            return new Promise(() => res.status(200).json({ message: "Comanda atualizada", status: true }));
         } catch (error) {
-            return new Promise(() => res.status(500).json({ error: `${error}` }));
+            return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
     };
 
     static async deleteById(req, res) {
         const { id } = req.params;
 
-        if (!id) return res.status(500).json({ message: "Cliente ineistente!" });
+        if (!id) return res.status(500).json({ message: "Cliente ineistente!", status: false });
 
         try {
             await User.deleteOne({ _id: id });
 
-            return new Promise(() => res.status(200).json({ message: "Usuário deletado" }));
+            return new Promise(() => res.status(200).json({ message: "Usuário deletado", status: true }));
         } catch (error) {
-            return new Promise(() => res.status(500).json({ error: `${error}` }));
+            return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
     };
 };
