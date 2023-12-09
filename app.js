@@ -1,7 +1,11 @@
 const express = require("express");
 const app = express();
-require("dotenv").config();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, { cors: { origin: 'http://localhost:3000' } });;
+
 const cors = require("cors");
+
+require("dotenv").config();
 
 const connection = require("./db/connection");
 
@@ -18,7 +22,7 @@ app.use(
 app.use(express.json());
 
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: [process.env.URL_FRONT],
     credentials: true,
     methods: "GET, POST, PUT, DELETE",
     allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
@@ -29,9 +33,23 @@ app.use("/usuario", userRouter);
 app.use("/comanda", comandaRoutes);
 app.use("/produto", produtoRoutes);
 
+io.on("connection", (socket) => {
+    console.log("Usuário conectado", socket.id);
+
+    socket.on("disconnect", reason => {
+        console.log("Usuário desconectado", socket.id);
+    });
+
+    socket.on("novo_pedido", (pedido) => {
+        socket.data.pedido = pedido;
+
+        io.emit("lista_novo_pedido", socket.data.pedido);
+    });
+});
+
 connection
     .then(() => {
-        app.listen(process.env.PORT);
+        server.listen(process.env.PORT);
         console.log("Estamos conectados com o Mongo");
     })
     .catch(() => console.log("Erro ao conectar ao DB"));
