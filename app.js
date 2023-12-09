@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 const server = require("http").createServer(app);
-const io = require("socket.io")(server, { cors: { origin: 'http://localhost:3000' } });;
+const io = require("socket.io")(server, { cors: { origin: process.env.URL_FRONT } });;
 
 const cors = require("cors");
 
-require("dotenv").config();
 
 const connection = require("./db/connection");
 
