@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const server = require("http").createServer(app);
-const io = require("socket.io")(server, { cors: { origin: process.env.URL_FRONT } });;
+const io = require("socket.io")(server, { cors: { origin: process.env.URL_FRONT } });
 
 const cors = require("cors");
 
-
 const connection = require("./db/connection");
 
+const caixaRoutes = require("./routes/caixaRoutes");
 const comandaRoutes = require("./routes/comandaRoutes");
 const produtoRoutes = require("./routes/produtoRoutes");
 const userRouter = require("./routes/userRouter");
@@ -28,10 +28,11 @@ app.use(cors({
     allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
 }));
 
+app.use("/caixa", caixaRoutes);
 app.use("/login", loginRouter);
 app.use("/usuario", userRouter);
-app.use("/comanda", comandaRoutes);
 app.use("/produto", produtoRoutes);
+app.use("/comanda", comandaRoutes);
 
 io.on("connection", (socket) => {
     console.log("Usuário conectado", socket.id);
