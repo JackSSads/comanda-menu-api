@@ -26,12 +26,12 @@ module.exports = class ComandaController {
     };
 
     static async create(req, res) {
-        const { nameClient, vessel, totalValue, status } = req.body;
+        const { nameClient, vessel, totalValue, status, pagForm } = req.body;
 
         if (nameClient === "" || vessel === "" || totalValue === "" || status === "") return res.json({ message: "Preencha todos os campos", status: false });
 
         try {
-            const comanda = { nameClient, vessel, totalValue, status };
+            const comanda = { nameClient, vessel, totalValue, pagForm, status };
 
             await Comanda.create(comanda);
 
@@ -44,11 +44,11 @@ module.exports = class ComandaController {
 
     static async updateById(req, res) {
         const { id } = req.params;
-        const { products, totalValue, status } = req.body;
+        const { products, totalValue, status, pagForm } = req.body;
 
         try {
 
-            const data = { products, totalValue, status };
+            const data = { products, totalValue, status, pagForm };
 
             await Comanda.updateOne({ _id: id }, data);
 
