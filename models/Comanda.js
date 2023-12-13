@@ -5,7 +5,8 @@ const Comanda = mongoose.model("Comanda", {
     vessel: String,
     products: Array,
     totalValue: Number,
-    status: Boolean
+    status: Boolean,
+    pagForm: String
 });
 
 module.exports = Comanda;
