@@ -46,6 +46,18 @@ io.on("connection", (socket) => {
 
         io.emit("lista_novo_pedido", socket.data.pedido);
     });
+
+    socket.on("nova_comanda", (data) => {
+        socket.data.nova_comanda = data;
+
+        io.emit("nova_comanda", socket.data.nova_comanda);
+    });
+
+    socket.on("comanda_finalizada", (data) => {
+        socket.data.comanda_finalizada = data
+
+        io.emit("comanda_finalizada", socket.data.comanda_finalizada);
+    });
 });
 
 connection
