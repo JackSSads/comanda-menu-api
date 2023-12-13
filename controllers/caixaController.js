@@ -44,11 +44,11 @@ module.exports = class CaixaController {
 
     static async updateById(req, res) {
         const { id } = req.params;
-        const { products, totalValue, status } = req.body;
+        const { comandas, totalValue, status } = req.body;
 
         try {
 
-            const data = { products, totalValue, status };
+            const data = { comandas, totalValue, status };
 
             await Caixa.updateOne({ _id: id }, data);
 
