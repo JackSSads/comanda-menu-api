@@ -31,7 +31,7 @@ module.exports = class CaixaController {
         if (comandas === "" || totalValue === "" || status === "") return res.json({ message: "Preencha todos os campos", status: false });
 
         try {
-            const data = { comandas, totalValue, status };
+            const data = { comandas, totalValue: 0, status: true };
 
             await Caixa.create(data);
 
