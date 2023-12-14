@@ -37,7 +37,7 @@ app.use("/comanda", comandaRoutes);
 io.on("connection", (socket) => {
     console.log("Usuário conectado", socket.id);
 
-    socket.on("disconnect", reason => {
+    socket.on("disconnect", socket => {
         console.log("Usuário desconectado", socket.id);
     });
 
@@ -54,9 +54,15 @@ io.on("connection", (socket) => {
     });
 
     socket.on("comanda_finalizada", (data) => {
-        socket.data.comanda_finalizada = data
+        socket.data.comanda_finalizada = data;
 
         io.emit("comanda_finalizada", socket.data.comanda_finalizada);
+    });
+
+    socket.on("produto_pronto", (data) => {
+        socket.data.produto_pronto = data;
+
+        io.emit("produto_pronto", socket.data.produto_pronto);
     });
 });
 
