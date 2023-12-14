@@ -64,6 +64,11 @@ io.on("connection", (socket) => {
 
         io.emit("produto_pronto", socket.data.produto_pronto);
     });
+
+    socket.on("produto_removido", () => {
+
+        socket.broadcast.emit("produto_removido");
+    });
 });
 
 connection
