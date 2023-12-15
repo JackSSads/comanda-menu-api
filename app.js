@@ -44,30 +44,38 @@ io.on("connection", (socket) => {
     socket.on("novo_pedido", (pedido) => {
         socket.data.pedido = pedido;
 
-        io.emit("lista_novo_pedido", socket.data.pedido);
+        socket.broadcast.emit("lista_novo_pedido", socket.data.pedido);
     });
 
-    socket.on("nova_comanda", (data) => {
-        socket.data.nova_comanda = data;
+    socket.on("nova_comanda", () => {
 
-        io.emit("nova_comanda", socket.data.nova_comanda);
+        socket.broadcast.emit("nova_comanda");
     });
 
     socket.on("comanda_finalizada", (data) => {
         socket.data.comanda_finalizada = data;
 
-        io.emit("comanda_finalizada", socket.data.comanda_finalizada);
+        socket.broadcast.emit("comanda_finalizada", socket.data.comanda_finalizada);
     });
 
     socket.on("produto_pronto", (data) => {
         socket.data.produto_pronto = data;
 
-        io.emit("produto_pronto", socket.data.produto_pronto);
+        socket.broadcast.emit("produto_pronto", socket.data.produto_pronto);
     });
 
-    socket.on("produto_removido", () => {
+    socket.on("produto_removido", (data) => {
 
-        socket.broadcast.emit("produto_removido");
+        socket.data.produto_removido = data;
+
+        socket.broadcast.emit("produto_removido", socket.data.produto_removido);
+    });
+
+    socket.on("alterar_quantidade", (data) => {
+
+        socket.data.alterar_quantidade = data;
+
+        socket.broadcast.emit("alterar_quantidade", socket.data.alterar_quantidade);
     });
 });
 
