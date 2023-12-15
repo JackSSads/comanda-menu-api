@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./api.js",
+    "start": "./app.js",
     "server": "nodemon ./app.js localhost 80"
   },
   "keywords": [],
