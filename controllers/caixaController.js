@@ -5,7 +5,23 @@ module.exports = class CaixaController {
         try {
             const data = await Caixa.find();
 
-            return new Promise(() => res.status(200).json({ data, status: true }));
+            if (data.length <= 0) {
+                try {
+
+                    const data = { comandas: [], totalValue: 0, status: true };
+
+                    await Caixa.create(data);
+
+                    const dataGet = await Caixa.find();
+
+                    return new Promise(() => res.status(200).json({ dataGet, status: true }));
+
+                } catch (error) {
+                    return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
+                };
+            } else {
+                return new Promise(() => res.status(200).json({ data, status: true }));
+            };
         } catch (error) {
             return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
@@ -61,12 +77,12 @@ module.exports = class CaixaController {
     static async deleteById(req, res) {
         const { id } = req.params;
 
-        if (!id) return res.status(500).json({ message: "Cliente ineistente!", status: true });
+        if (!id) return res.status(500).json({ message: "Caixa ineistente!", status: false });
 
         try {
             await Caixa.deleteOne({ _id: id });
 
-            return new Promise(() => res.status(200).json({ message: "Caixa deletada", status: true }));
+            return new Promise(() => res.status(200).json({ message: "Caixa deletado", status: true }));
         } catch (error) {
             return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
