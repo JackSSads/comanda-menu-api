@@ -71,4 +71,16 @@ module.exports = class ComandaController {
             return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
         };
     };
+
+    static async deleteAll(req, res) {
+
+        try {
+
+            await Comanda.deleteMany({});
+
+            return new Promise(() => res.status(200).json({ message: "Comandas deletadas", status: true }));
+        } catch (error) {
+            return new Promise(() => res.status(500).json({ message: "Erro ao realizar requizição", status: false }));
+        };
+    };
 };
