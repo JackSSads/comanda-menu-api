@@ -6,7 +6,8 @@ const Produto = mongoose.model("Produto", {
     qnt: Number,
     totalPrice: Number,
     category: String,
-    status: Boolean
+    status: Boolean,
+    obs: String
 });
 
 module.exports = Produto;

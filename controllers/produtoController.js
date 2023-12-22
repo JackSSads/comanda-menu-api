@@ -24,12 +24,12 @@ module.exports = class ProdutoController {
     };
 
     static async create(req, res) {
-        const { nameProduct, value, qnt, totalPrice, category, status } = req.body;
+        const { nameProduct, value, qnt, totalPrice, category } = req.body;
 
         if (nameProduct === "" || value === "" || qnt === null) return res.json({ message: "Todos os campos são obrigatórios", status: false });
 
         try {
-            const data = { nameProduct, value, qnt, totalPrice, category, status };
+            const data = { nameProduct, value, qnt, totalPrice, category, status: true, obs: "" };
 
             await Produto.create(data);
 
