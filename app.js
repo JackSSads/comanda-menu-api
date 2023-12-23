@@ -77,6 +77,13 @@ io.on("connection", (socket) => {
 
         socket.broadcast.emit("alterar_quantidade", socket.data.alterar_quantidade);
     });
+
+    socket.on("comanda_cancelada", (data) => {
+
+        socket.data.comanda_cancelada = data;
+
+        socket.broadcast.emit("comanda_cancelada", socket.data.comanda_cancelada);
+    });
 });
 
 connection
