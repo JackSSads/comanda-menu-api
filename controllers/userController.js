@@ -46,7 +46,7 @@ module.exports = class UserController {
 
         try {
 
-            const data = { nameClient, func, email, pass };
+            const data = { nameClient, func, email, pass: bcrypt.hashSync(pass, 8) };
 
             await User.updateOne({ _id: id }, data);
 
