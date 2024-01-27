@@ -42,10 +42,10 @@ module.exports = class ProdutoController {
 
     static async updateById(req, res) {
         const { id } = req.params;
-        const { nameProduct, value, qnt, totalPrice } = req.body;
+        const { nameProduct, value, qnt, category, totalPrice } = req.body;
 
         try {
-            const data = { nameProduct, value, qnt, totalPrice };
+            const data = { nameProduct, value, category, qnt, totalPrice };
 
             await Produto.updateOne({ _id: id }, data);
 
