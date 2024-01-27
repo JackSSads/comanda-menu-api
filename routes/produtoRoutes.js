@@ -4,10 +4,10 @@ const ProdutoController = require("../controllers/produtoController");
 
 const auth = require("../auth");
 
-router.get("/", auth, ProdutoController.getAll);
-router.get("/:id", auth, ProdutoController.getById);
-router.post("/", auth, ProdutoController.create);
-router.put("/:id", auth, ProdutoController.updateById);
-router.delete("/:id", auth, ProdutoController.deleteById);
+router.get("/", ProdutoController.getAll);
+router.get("/:id", ProdutoController.getById);
+router.post("/", ProdutoController.create);
+router.put("/:id", ProdutoController.updateById);
+router.delete("/:id", ProdutoController.deleteById);
 
 module.exports = router;

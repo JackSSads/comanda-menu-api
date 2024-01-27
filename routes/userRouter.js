@@ -4,10 +4,10 @@ const UserController = require("../controllers/userController");
 
 const auth = require("../auth");
 
-router.get("/", auth, UserController.getAll);
-router.get("/:id", auth, UserController.getById);
-router.post("/", auth, UserController.create);
-router.put("/:id", auth, UserController.updateById);
-router.delete("/:id", auth, UserController.deleteById);
+router.get("/", UserController.getAll);
+router.get("/:id", UserController.getById);
+router.post("/", UserController.create);
+router.put("/:id", UserController.updateById);
+router.delete("/:id", UserController.deleteById);
 
 module.exports = router;
